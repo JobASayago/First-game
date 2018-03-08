@@ -1,0 +1,200 @@
+
+
+#include "stdafx.h"
+#include <iostream>
+#include <cmath>
+#include <string>
+#include <cstdlib>
+using namespace std;
+int main()
+{
+	double head, body, glove, weapon, damage, defense, health;
+	string mode, classes;
+	head = 20.0;
+	body = 30.0;
+	glove = 10.0;
+	weapon = 20.0;
+
+	cout << "choose your mode, (easy, medium, or hard)";
+	cin >> mode;
+
+	if (mode != ("easy") || mode != ("hard") || mode != ("medium"))
+	{
+		while (mode != ("easy") || mode != ("hard") || mode != ("medium"))
+		{
+			
+			if (mode == ("easy") || mode == ("hard") || mode == ("medium"))
+				break;
+			else
+			{
+				cout << "choose your mode, (easy, medium, or hard)";
+				cin >> mode;
+				continue;
+			}
+			
+		}
+	}
+	else if (mode == "easy")
+	{
+		head *= 1.5;
+		body *= 1.5;
+		glove *= 1.5;
+		weapon *= 1.5;
+	}
+
+	else if (mode == "hard")
+	{
+		head *= .5;
+		body *= .5;
+		glove *= .5;
+		weapon *= .5;
+	}
+
+	else
+	{
+
+	}
+
+	cout << "choose your class (offense, defense, balance)";
+	cin >> classes;
+	if (classes != "offense" || classes != "defense" || classes != "balance")
+	{
+		while (classes != "offense" || classes != "defense" || classes != "balance")
+		{
+			
+			if ((classes == ("offense") || classes == ("defense") || classes == ("balance")))
+				break;
+			else
+			{
+				cout << "choose your class (offense, defense, balance)";
+				cin >> classes;
+				continue;
+			}
+			
+		}
+	}
+	else if (classes == "offense")
+		weapon *= 3.0;
+	else if (classes == "defense")
+	{
+		body *= 2.5;
+		glove *= 2.5;
+
+	}
+
+	else
+	{
+		weapon *= 1.5;
+		body *= 1.25;
+		glove *= 1.25;
+		head *= 1.5;
+	}
+	damage = weapon;
+	health = head;
+	defense = body + glove + .25*head;
+	int hp, def, mdef, attack, mdamage, mattack, True_Defense;
+	string choice;
+	
+	for (int lvl =1; health>0; lvl++)
+	{
+		hp = 10 * pow(lvl, 1.1)+1;
+		mdef = 2 * lvl;
+		if (mdef > 20)
+			mdef = 20 + lvl;
+		else
+		{ }
+		mdamage = 10+lvl;
+		cout << "the monster level is currently " << lvl << endl;
+		while (hp > 10)
+		{
+			do
+			{
+				cout << "attack or defend?";
+				cin >> choice;
+
+				if (choice != "attack" || choice != "defend")
+				{
+					if (choice == "attack" || choice == "defend")
+						break;
+					else
+						continue;
+					cout << "attack or defend?";
+					cin >> choice;
+				}
+
+				else
+				{
+				}
+
+			} while (hp > 0 && health>0);
+			{
+
+				int a = rand() % 100;
+				if (choice == "attack")
+				{
+					True_Defense = defense;
+					attack = damage * (rand() % 10 + 1);
+				}
+				else if (choice == "defend")
+				{
+					attack = 0;
+					True_Defense = 30 * defense;
+
+					health++;
+				}
+				else
+				{
+				}
+				//hp = hp - (attack - mdef);
+				if (attack == 0)
+				{
+					cout << "you healed 1 hp" << endl;
+
+				}
+
+				else if (attack != 0 && attack>mdef)
+				{
+					hp = hp - (attack - mdef);
+					cout << "You inflicted " << (attack - mdef) << " damage" << endl;
+				}
+				else
+				{
+
+					hp = hp;
+					cout << "You inflicted no damage" << endl;
+				}
+				if (a > 20)
+					mattack = (mdamage)*(rand() % 2);
+				else
+				{
+					mattack = 0;
+					hp = hp + lvl;
+				}
+				if (mattack < True_Defense)
+				{
+					health = health;
+					cout << " you didn't take any damage" << endl;
+				}
+				else if (mattack != 0)
+				{
+					health = health - (mattack - True_Defense);
+
+					cout << "current hp is " << health << endl;
+				}
+				else
+				{
+					cout << "the monster has healed";
+				}
+				if (health < 0)
+					break;
+				else
+				{ }
+
+			}
+		}
+
+
+	}
+	cout << "you died" << endl;
+	return 0;
+}
